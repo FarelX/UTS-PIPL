@@ -120,6 +120,27 @@ function cekKelulusanBeasiswa(d) {
 }
 
 // ============================================================
+//  CURRENCY FORMATTER (Rupiah)
+// ============================================================
+function formatCurrency(input) {
+  // Simpan posisi kursor relatif dari kanan
+  const selStart = input.selectionStart;
+  const prevLen = input.value.length;
+
+  // Ambil hanya digit
+  const digits = input.value.replace(/\D/g, "");
+
+  // Format dengan titik setiap 3 digit dari kanan
+  const formatted = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  input.value = formatted;
+
+  // Jaga posisi kursor agar tidak melompat ke akhir
+  const newLen = input.value.length;
+  const cursorPos = selStart + (newLen - prevLen);
+  input.setSelectionRange(cursorPos, cursorPos);
+}
+
+// ============================================================
 //  TOGGLE STATE
 // ============================================================
 let prestasiValue = null;
@@ -143,7 +164,10 @@ function submitForm() {
 
   const namaRaw = document.getElementById("f-nama").value;
   const ipkRaw = document.getElementById("f-ipk").value;
-  const pengRaw = document.getElementById("f-penghasilan").value;
+  // Hapus titik pemisah ribuan sebelum parsing
+  const pengRaw = document
+    .getElementById("f-penghasilan")
+    .value.replace(/\./g, "");
   const semRaw = document.getElementById("f-semester").value;
 
   // Build input (let validation layer handle type errors)
