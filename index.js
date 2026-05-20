@@ -83,8 +83,8 @@ function cekKelulusanBeasiswa(d) {
     prestasi === false &&
     ipk >= 3.5 &&
     semester >= 3 &&
-    semester <= 8 &&
-    penghasilan < 5_000_000
+    // semester <= 8 &&
+    penghasilan <= 5_000_000
   ) {
     lulusBeasiswa = true;
     alasan =
